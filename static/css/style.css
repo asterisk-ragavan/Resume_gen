@@ -1,0 +1,12 @@
+/* Add some basic styling */
+body {
+    font-family: sans-serif;
+}
+
+.jumbotron {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: .3rem;
+}
+/* Add more custom styles here */

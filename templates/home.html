@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Files - Resume Generator{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Resume Generator</h1>
+    <p class="lead">Upload your HTML file and resume (HTML/PDF) to get best Resume.</p>
+</div>
+
+<div id="loading" style="display:none; text-align:center;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <p>Processing your files, please wait...</p>
+</div>
+
+<form method="post" enctype="multipart/form-data" class="needs-validation" novalidate id="uploadForm">
+    <div class="form-group">
+        <label for="html_file">HTML File:</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="html_file" name="html_file" accept=".html" required>
+            <label class="custom-file-label" for="html_file">Choose file...</label>
+            <div class="invalid-feedback">Please choose an HTML file.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="my_resume">Resume (HTML/PDF):</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="my_resume" name="my_resume" accept=".html,.pdf" required>
+            <label class="custom-file-label" for="my_resume">Choose file...</label>
+            <div class="invalid-feedback">Please choose a resume file (HTML or PDF).</div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg" id="analyzeButton">Analyze</button>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Display selected file name
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+    // Disable form submission if invalid fields exist
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        // Show loading animation
+                        document.getElementById('loading').style.display = 'block';
+                        document.getElementById('analyzeButton').disabled = true;
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    // Transform button on page load if processing is done
+    window.addEventListener('load', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('processed') === 'true') {
+            document.getElementById('loading').style.display = 'none';
+            var analyzeButton = document.getElementById('analyzeButton');
+            analyzeButton.classList.remove('btn-primary');
+            analyzeButton.classList.add('btn-success');
+            analyzeButton.textContent = 'View Resume';
+            analyzeButton.disabled = false;
+            analyzeButton.onclick = function() {
+                window.location.href = '/view_resume';
+            };
+        }
+    });
+</script>
+{% endblock %}

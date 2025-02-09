@@ -1,0 +1,254 @@
+{# base_resume.html #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ name }} - Resume</title>
+    <style>
+        /*  ----- CSS Reset (Basic) ----- */
+        body, h1, h2, h3, p, ul, li {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif; /* Consistent font */
+            line-height: 1.4;     /* Improved readability */
+        }
+
+        /* ----- Overall Structure ----- */
+        .container {
+            width: 80%;         /* Responsive width */
+            max-width: 800px;  /* Max width for larger screens */
+            margin: 0 auto;     /* Center the content */
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        /* ----- Header Section ----- */
+        .header {
+            text-align: center; /* Center-align header content */
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 1.8em;  /* Larger name */
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 1.1em;
+            color: #555;         /* Slightly muted color */
+        }
+        .header .contact-info {
+            margin-top: 10px;
+            display: flex;        /* Use flexbox for layout*/
+            justify-content: center; /* Center items horizontally*/
+            flex-wrap: wrap;       /* Allow wrapping on smaller screens*/
+        }
+        .header .contact-info p {
+             margin: 0 15px 5px 0;
+             font-size: 0.9em; /*Smaller Text for Contact info*/
+        }
+
+        /* ----- Section Styling (Work, Projects, Education, etc.) ----- */
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #333;  /* Underline section titles */
+            padding-bottom: 5px;
+        }
+
+        /* ----- Work Experience & Project Entries ----- */
+        .entry {
+            margin-bottom: 15px;
+        }
+        .entry-header {
+            display: flex;         /* Flexbox for title and dates */
+            justify-content: space-between; /* Push items to the edges */
+            align-items: center;    /* Vertically align items */
+            margin-bottom: 5px;
+        }
+
+        .entry-title {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .entry-company, .entry-location{
+            font-style: italic;
+             font-size: 1em;
+        }
+        .entry-dates {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .entry-description ul {
+            list-style: disc;      /* Bullet points for descriptions */
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+      .entry-description ul li{
+        margin-bottom: 3px;
+      }
+
+        /* ----- Skills Section ----- */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;  /* Wrap skills to the next line */
+        }
+        .skills-list li {
+            margin-right: 15px;
+            margin-bottom: 5px;
+        }
+        .skills-list li:last-child{
+          margin-right: 0;
+        }
+
+         /* ----- Summary Section ----- */
+        .summary-description {
+            margin-bottom: 10px;
+            line-height:1.6;
+            font-style: italic;
+        }
+      .certification-entry-header{
+        display: flex;         /* Flexbox for title and dates */
+        justify-content: space-between; /* Push items to the edges */
+        align-items: center;    /* Vertically align items */
+        margin-bottom: 5px;
+      }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ name }}</h1>
+            <p>{{ title }}</p>
+            <div class="contact-info">
+                {% if email %}<p>{{ email }}</p>{% endif %}
+                {% if website %}<p>{{ website }}</p>{% endif %}
+                {% if phone %}<p>{{ phone }}</p>{% endif %}
+                {% if location %}<p>{{ location }}</p>{% endif %}
+            </div>
+        </div>
+
+        {% if summary %}
+            <div class="section">
+              <p class = "summary-description">{{ summary }}</p>
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+
+        {% if work_experience %}
+        <div class="section">
+            <h2 class="section-title">Work Experience</h2>
+            {% for job in work_experience %}
+                <div class="entry">
+                    <div class="entry-header">
+                        <div>
+                          <div class="entry-title">{{ job.title }}</div>
+                          <span class="entry-company">{{ job.company }}</span> | <span class = "entry-location">{{job.location}}</span>
+                        </div>
+                        <div class="entry-dates">{{ job.dates }}</div>
+                    </div>
+                    <div class="entry-description">
+                        <ul>
+                            {% for bullet in job.bullets %}
+                            <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if projects %}
+        <div class="section">
+            <h2 class="section-title">Projects</h2>
+             {% for project in projects %}
+                <div class="entry">
+                    <div class="entry-header">
+                        <div>
+                           <div class="entry-title">{{ project.title }}</div>
+                        </div>
+
+                        <div class="entry-dates">{{ project.dates }}</div>
+                    </div>
+                    <div class="entry-description">
+                        <ul>
+                           {% for bullet in project.bullets %}
+                            <li>{{ bullet }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if skills %}
+        <div class="section">
+            <h2 class="section-title">Core Skills</h2>
+            <ul class="skills-list">
+                {% for skill in skills %}
+                <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if education %}
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            {% for edu in education %}
+                <div class="entry">
+                  <div class = "entry-header">
+                    <div>
+                      <div class="entry-title">{{ edu.institution }}</div>
+                    </div>
+                     <div class="entry-dates">{{ edu.dates }}</div>
+                  </div>
+                  <div class = "entry-company">{{edu.degree}}</div>
+
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if certifications %}
+          <div class="section">
+              <h2 class="section-title">Certifications</h2>
+              {% for cert in certifications %}
+                  <div class="entry">
+                    <div class = "certification-entry-header">
+                        <div>
+                          <div class="entry-title">{{ cert.name }}</div>
+                          <div class="entry-company">{{ cert.issuing_organization }}</div>
+                        </div>
+                        <div class="entry-dates">
+                          {{ cert.date }}
+                          {% if cert.expires and cert.expiry_date %}
+                                - {{cert.expiry_date}}
+                          {% endif %}
+                      </div>
+
+                    </div>
+
+                      {% if cert.credential_id or cert.credential_url %}
+                          <div class="entry-description">
+                              <ul>
+                                {% if cert.credential_id %}
+                                     <li>Credential ID: {{ cert.credential_id }}</li>
+                                  {% endif %}
+                                  {% if cert.credential_url %}
+                                      <li><a href="{{ cert.credential_url }}" target="_blank">View Credential</a></li>
+                                  {% endif %}
+                              </ul>
+                          </div>
+                      {% endif %}
+                  </div>
+              {% endfor %}
+          </div>
+        {% endif %}
+    </div>
+</body>
+</html>
