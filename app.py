@@ -11,6 +11,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['RESUME_FOLDER'] = 'Resume'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_very_secret_key')
 ALLOWED_EXTENSIONS = {'html', 'pdf'}
@@ -87,8 +88,14 @@ def view_resume():
     except json.JSONDecodeError:
         return "Error: Invalid JSON data", 500  # Handle JSON parsing errors
 
-    return render_template('base_resume.html', **resume_data)
+    
+    rendered = render_template('base_resume.html', **resume_data)
+    
+    pdf_path=os.path.join(app.config['RESUME_FOLDER'], str(resume_data["personal_info"]["name"]+"_"+resume_data["personal_info"]["title"]+".pdf"))
+
+    return rendered
 
 if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    os.makedirs(app.config['RESUME_FOLDER'], exist_ok=True)
     app.run(debug=True)

@@ -1,0 +1,80 @@
+{
+    "personal_info": {
+        "name": "Sakthi Ragavan",
+        "title": "Software developer | Python Django | DSA | ECE VTU University",
+        "email": "sakthiragavan359@gmail.com",
+        "phone": "9110421913",
+        "location": "Bengaluru, Karnataka, India",
+        "linkedin": "https://www.linkedin.com/in/sakthi-ragavan/",
+        "linkedin_username": "sakthi-ragavan",
+        "github": "https://github.com/asterisk-ragavan",
+        "github_username": "asterisk-ragavan"
+    },
+    "work_experience": [
+        {
+            "company": "TATA Consultancy Services",
+            "title": "Software Developer",
+            "start_date": "Jan 2024",
+            "end_date": "Present",
+            "bullets": [
+                "Developed scalable REST APIs using Django and built lightweight web applications with Flask.",
+                "Optimized application performance through efficient data structures and algorithms in Python.",
+                "Led development activities and supported L2/L3 teams in resolving complex technical issues.",
+                "Implemented JWT token-based authentication for API endpoints in the application.",
+                "Identified and resolved bugs, contributing to improved system reliability and performance",
+                "Expanding expertise in machine learning and AWS cloud computing for scalable solutions."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "Visvesvaraya Technological University",
+            "degree": "B.E Electronics and Communication",
+            "gpa": "7.01",
+            "start_date": "Aug 2019",
+            "end_date": "July 2023",
+            "bullets": [
+                "Served as Student Club Coordinator, YCOI President, and TCS SPOC, leading various initiatives.",
+                "Possess strong presentation skills, effectively delivering engaging and informative project presentations."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Role-Based Library Management System",
+            "date": "Aug 2022",
+            "bullets": [
+                "Developed and deployed a Library Management System using Django and MySQL on AWS EC2.",
+                "Designed an interactive front-end with Tailwind CSS, Jinja2, Bootstrap, and jQuery.",
+                "Implemented role-based access control for students, librarians, and management.",
+                "Integrated a weighted ranking system for popular books and export/import functionality in multiple formats."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "category": "Programming Languages",
+            "skills": ["Python", "Java", "C program", "C#"]
+        },
+        {
+            "category": "Frameworks",
+            "skills": ["Django", "Flask", "TensorFlow", "Numpy", "Pandas", "ASP.Net", "Selenium", "Rest framework", "MySQL"]
+        },
+        {
+            "category": "Tools",
+            "skills": ["AWS", "Microsoft Power Automate", "Blue Prism", "MS Azure", "Docker", "Mainframe", "Github", "Jira"]
+        }
+    ],
+   "certificates": [
+        {
+            "name": "AWS certified cloud architect",
+            "link": "https://www.certificate.udemy.com",
+            "about": "about the certificate"
+        }
+    ],
+
+    "achievements": [
+          "Served as Student Club Coordinator, YCOI President, and TCS SPOC, leading various initiatives.",
+          "Possess strong presentation skills, effectively delivering engaging and informative project presentations."
+    ]
+}

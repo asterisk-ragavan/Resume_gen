@@ -7,79 +7,86 @@ from google.genai import types
 load_dotenv()
 
 JSON_FORMAT = """{
-  "name": "Jennifer Jobscan",
-  "title": "Product Designer",
-  "email": "jennifer@jobscan.co",
-  "website": "www.jenniferjobscan.co",
-  "phone": "123.456.7890",
-  "location": "Seattle, WA, 90823, US",
-  "summary": "Creative professional and collaborator with 15+ years experience devoted to product, 10+ as a Product Manager and Lead. In-depth knowledge of manufacturing processes, materials, applications, licensing with external partners and approval standards.",
-  "work_experience": [
-    {
-      "title": "Design Directory Consultant",
-      "company": "Fashion Forum",
-      "location": "Milan",
-      "dates": "Feb 2018 - Present",
-      "bullets": [
-        "Reviewed design concepts, critiqued, and designed fashion based tier 1 headwear that elevated product and brand expression.",
-        "Designed quick-to-market regionalized, premium, and mass product line for subsidiary brands under fashion umbrella.",
-        "Set up subsidiary brands under Hat Club with sourcing, and S.O.P.s for product creation and development."
-      ]
+    "personal_info": {
+        "name": "Sakthi Ragavan",
+        "title": "Software developer | Python Django | DSA | ECE VTU University",
+        "email": "sakthiragavan359@gmail.com",
+        "phone": "9110421913",
+        "location": "Bengaluru, Karnataka, India",
+        "linkedin": "https://www.linkedin.com/in/sakthi-ragavan/",
+        "linkedin_username": "sakthi-ragavan",
+        "github": "https://github.com/asterisk-ragavan",
+        "github_username": "asterisk-ragavan"
     },
-    {
-      "title": "Assistant Manager (Design)",
-      "company": "StyleMe Inc",
-      "location": "New York, NY",
-      "dates": "Aug 2016 - Jan 2018",
-      "bullets": [
-        "Influenced accounts, vendors, and internal stakeholders to support lifestyle product with trend presentation, selling tools, product curating, and exclusives, while delivering renewed company relevance at trade shows through brand collaborations.",
-        "Implemented quick-to-market system to react to trends, allowing for customization, low minimums and faster timelines.",
-        "Coordinated with factories ensuring proper execution, pricing, and delivery of prototypes and production samples."
-      ]
-    }
-  ],
-  "projects": [
-    {
-      "title": "User Story Development",
-      "dates": "Feb 2017 - Aug 2017",
-      "bullets": [
-        "Developed detailed user personas through extensive research and user interviews to empathize with target users' needs and behaviors. Utilized insights to create personas that informed design decisions, resulting in user-centric solutions that improved user experience and engagement."
-      ]
-    }
-  ],
-  "skills": [
-    "Photoshop",
-    "Illustration",
-    "User Interface",
-    "User Experience"
-  ],
-  "education": [
-    {
-      "institution": "New York University",
-      "dates": "Aug 2010 - Dec 2014",
-      "degree": "Bachelor Fine Arts Management"
-    }
-  ],
-  "certifications": [
-    {
-      "name": "Example Certification 1",
-      "issuing_organization": "Example Organization",
-      "date": "Jan 2023",
-      "expires": false,
-      "credential_id": null,
-      "credential_url": null
-    },
-      {
-      "name": "Example Certification 2",
-      "issuing_organization": "Another Organization",
-      "date": "June 2022",
-      "expires": true,
-       "expiry_date": "June 2024",
-      "credential_id": "12345ABC",
-      "credential_url": "https://example.com/credential/12345ABC"
-    }
-  ]
-}"""
+    "work_experience": [
+        {
+            "company": "TATA Consultancy Services",
+            "title": "Software Developer",
+            "start_date": "Jan 2024",
+            "end_date": "Present",
+            "bullets": [
+                "Developed scalable REST APIs using Django and built lightweight web applications with Flask.",
+                "Optimized application performance through efficient data structures and algorithms in Python.",
+                "Led development activities and supported L2/L3 teams in resolving complex technical issues.",
+                "Implemented JWT token-based authentication for API endpoints in the application.",
+                "Identified and resolved bugs, contributing to improved system reliability and performance",
+                "Expanding expertise in machine learning and AWS cloud computing for scalable solutions."
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "Visvesvaraya Technological University",
+            "degree": "B.E Electronics and Communication",
+            "gpa": "7.01",
+            "start_date": "Aug 2019",
+            "end_date": "July 2023",
+            "bullets": [
+                "Served as Student Club Coordinator, YCOI President, and TCS SPOC, leading various initiatives.",
+                "Possess strong presentation skills, effectively delivering engaging and informative project presentations."
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Role-Based Library Management System",
+            "date": "Aug 2022",
+            "bullets": [
+                "Developed and deployed a Library Management System using Django and MySQL on AWS EC2.",
+                "Designed an interactive front-end with Tailwind CSS, Jinja2, Bootstrap, and jQuery.",
+                "Implemented role-based access control for students, librarians, and management.",
+                "Integrated a weighted ranking system for popular books and export/import functionality in multiple formats."
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "category": "Programming Languages",
+            "skills": ["Python", "Java", "C program", "C#"]
+        },
+        {
+            "category": "Frameworks",
+            "skills": ["Django", "Flask", "TensorFlow", "Numpy", "Pandas", "ASP.Net", "Selenium", "Rest framework", "MySQL"]
+        },
+        {
+            "category": "Tools",
+            "skills": ["AWS", "Microsoft Power Automate", "Blue Prism", "MS Azure", "Docker", "Mainframe", "Github", "Jira"]
+        }
+    ],
+   "certificates": [
+        {
+            "name": "AWS certified cloud architect",
+            "link": "https://www.certificate.udemy.com",
+            "about": "about the certificate"
+        }
+    ],
+
+    "achievements": [
+          "Served as Student Club Coordinator, YCOI President, and TCS SPOC, leading various initiatives.",
+          "Possess strong presentation skills, effectively delivering engaging and informative project presentations."
+    ]
+}
+"""
 
 def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
     """
@@ -101,10 +108,10 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
         raise ValueError("The GOOGLE_API_KEY environment variable is not set.")
     
     try:
-        print("html start")
+        print("JD processing")
         prompt = """From the following HTML job description Attached, extract the following information and format it as a single, valid JSON object.  Do not include any introductory text or explanations, only the JSON.  The JSON should include these keys:
 
-                *   `job_title`: The title of the job.
+                *   `job_title`: this format  "Software developer | Python Django | DSA |" note this is according to job discription provided.
                 *   `company_name`: The name of the company.
                 *   `required_skills`: An array of strings, listing each required skill individually.  Be as granular as possible (e.g., instead of 'programming', list 'Python', 'JavaScript', 'SQL').
                 *   `preferred_skills`: An array of strings, similar to `required_skills`.
@@ -121,40 +128,61 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
                 mime_type='text/html',
             ),
             prompt])
+        print("JD completed")
         HTML_JOB_DATA=response.text
 
-        prompt = """Analyze the following resume text. Extract the following information, and then generate a concise summary suitable for a resume objective or professional summary section. Be specific and use keywords relevant to job applications:
+        print("Resume processing")
+        prompt = """
+        Analyze the attached resume text and extract the information into structured categories. Then, use the extracted information to generate a concise summary suitable for a resume objective or professional summary section.
 
-                1.  **Personal Information:**
-                    *   Full Name
-                    *   Email Address
-                    *   Phone Number
-                    *   LinkedIn Profile URL (if present)
-                    *   Other relevant URLs (portfolio, GitHub, etc.)
+        **Instructions:**
 
-                2.  **Education:** For each educational institution, list:
-                    *   Institution Name
-                    *   Degree Earned
-                    *   Major
-                    *   Graduation Date (or expected graduation date)
-                    *   GPA (if included and above 3.0)
-                    *   Relevant coursework or projects (list as comma-separated keywords)
+        1.  **Data Extraction:** Extract the following information from the resume text, presenting it in the specified format:
 
-                3.  **Experience:** For each work experience entry, list:
-                    *   Company Name
-                    *   Job Title
-                    *   Start Date
-                    *   End Date (or "Present" if currently employed)
-                    *   A list of responsibilities and accomplishments, using action verbs and quantifiable results whenever possible.  Present these as bullet points (but represented as plain text, not HTML).
+            *   **Personal Information:**
+                *   Full Name:
+                *   Email Address:
+                *   Phone Number:
+                *   LinkedIn Profile URL: (If present)
+                *   Other relevant URLs: (Portfolio, GitHub, etc. - list each with a label)
 
-                4.  **Skills:**  List all skills mentioned, categorized if possible (e.g., "Technical Skills:", "Soft Skills:").
+            *   **Education:** For *each* educational institution, provide:
+                *   Institution Name:
+                *   Degree Earned:
+                *   Major:
+                *   Start Date: (Month and Year - e.g., "Aug 2019")
+                *   End Date: (Month and Year - e.g., "Aug 2019", or "Present")
+                *   GPA: (If included)
+                *   Summary of learnings: (Briefly describe the key areas of study or skills acquired)
 
-                5. **Awards/certifications**: list of awards or certifications
+            *   **Experience:** For *each* work experience entry, provide:
+                *   Company Name:
+                *   Job Title:
+                *   Start Date: (Month and Year - e.g., "Aug 2019")
+                *   End Date: (Month and Year - e.g., "Aug 2019", or "Present")
+                *   Responsibilities and Accomplishments: (Present as a plain text list of bullet points. Use action verbs at the beginning of each point. Quantify results whenever possible.  Do *not* use HTML.)
+                    * Example:
+                        *  "Managed a team of 5 developers, increasing project delivery speed by 15%."
+                        *  "Developed and implemented a new customer onboarding process, reducing churn by 10%."
 
-                6.  **Summary:** Create a concise (3-5 sentence) professional summary.  This summary should highlight my key skills, experience level, and career goals.  It should be tailored to a general job application in [mention your target industry/field, e.g., "software engineering," "data science," "marketing"].  The summary *must* be suitable for use in the objective/summary section of a resume.
+            *   **Skills:** List all skills mentioned. Categorize them if possible.  Use clear category labels (e.g., "Technical Skills:", "Soft Skills:", "Tools:", "Programming Languages:").
 
-                Resume Text:
-                [Paste your resume text here]"""
+            * **Awards/Certifications:**
+                * List of awards or certifications: (Provide the name of each award or certification)
+
+            * **Achievements:** List Key achievements separately, extracted from various sections of the resume (experience, projects, awards, etc.). Present these as individual, concise bullet points (plain text, not HTML).  Focus on quantifiable results and impactful contributions.
+
+        2.  **Summary Generation:**
+
+            *   Create a concise (3-5 sentence) professional summary suitable for the objective/summary section of a resume.
+            *   Target Industry/Field: **[Specify your target industry/field here.  Be precise.  Examples: "Software Engineering (Backend Development)", "Data Science (Machine Learning)", "Digital Marketing (Social Media Strategy)", "Financial Analysis", "Project Management (Construction)"]**
+            *   The summary *must* highlight:
+                *   Key Skills (select the most relevant 3-5 skills for the target industry)
+                *   Experience Level (e.g., "Entry-level", "Experienced professional with X years of experience", "Recent graduate")
+                *   Career Goals (briefly and generally, aligning with the target industry)
+            * The summary *must* be written in a professional, third-person style.
+        """
+                
         response = client.models.generate_content(
         model="gemini-1.5-flash",
         contents=[
@@ -163,8 +191,10 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
                 mime_type=mime_type,
             ),
             prompt])
+        print("Resume processing")
         RESUME_DATA=response.text
 
+        print("Building Resume")
         prompt = f"""I am creating a customized resume using a Jinja2 template.  I have the following inputs:
 
             1.  **Job Information (JSON):**  This JSON contains details about the job I'm applying for.
@@ -193,11 +223,15 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
             
             *Output Json Format:
             {JSON_FORMAT}*
-            Note: give me the final output Json with relevent information to send to a resume template, dont include any explantion addition text to it.
-            only the optimized data in the specified output format is required."""
+            
+            Note: 1.  give me the final output Json with relevent information to send to a resume template, dont include any explantion addition text to it.
+                  2.  dont include dates if unknown ill use if statement to hide if not found in json.
+                  4. add bold tag (HTML tag) the important keywords in the fianl output resule data for the bullet opints, if skills required in jd are present in output bullets add bold tag.
+                  3.  only the optimized data in the specified output format is required, you can overwrite things from my resume to make output sutable for the role iam applying. """
             
         response = client.models.generate_content(
         model="gemini-2.0-pro-exp-02-05", contents=prompt)
+        print("Resume Built")
         
         return response.text
     
