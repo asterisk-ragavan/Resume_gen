@@ -14,7 +14,7 @@ def test_model():
     try:
         response = client.models.generate_content(
             model="gemini-2.5-pro",
-            contents="Hello, are you Gemini 3?"
+            contents="Hello, are you Gemini 2.5 Pro?"
         )
         print(f"Response: {response.text}")
     except Exception as e:
