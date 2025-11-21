@@ -166,12 +166,11 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
 
         # Call the model
         response = client.models.generate_content(
-            model="gemini-3-pro-preview",
+            model="gemini-2.5-pro",
             contents=contents
         )
         
-        print("Gemini 3 processing completed.")
-
+        print("Gemini 2.5 processing completed.")
         # Clean up the response if it contains markdown
         response_text = response.text
         if response_text.startswith("```json"):
