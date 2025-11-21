@@ -68,7 +68,17 @@ def home():
             if response_text:
                  flash("Gemini API Responded", "success")
                  global JSON_RESUME
-                 JSON_RESUME = response_text[response_text.index("{"):response_text.rindex("}")+1]
+                 try:
+                     # Try to find JSON block if mixed with text, though utils tries to clean it
+                     start_idx = response_text.find("{")
+                     end_idx = response_text.rfind("}")
+                     if start_idx != -1 and end_idx != -1:
+                         JSON_RESUME = response_text[start_idx:end_idx+1]
+                     else:
+                         JSON_RESUME = response_text # Assume it's pure JSON
+                 except Exception:
+                     JSON_RESUME = response_text
+
                  return redirect(url_for('home', processed='true'))
             else:
                 flash("Error processing files with Gemini API.", "danger")
