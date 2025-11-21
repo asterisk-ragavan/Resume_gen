@@ -1,5 +1,4 @@
 import os
-import json
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
@@ -92,7 +91,7 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
     """
     Generates a tailored resume JSON from Gemini API using the Job Description and current Resume.
 
-    Uses Gemini 3 Pro to analyze both documents simultaneously and produce an
+    Uses Gemini 2.5 Pro to analyze both documents simultaneously and produce an
     ATS-optimized resume structure.
 
     Args:
@@ -113,7 +112,7 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
     client = genai.Client(api_key=api_key)
     
     try:
-        print("Starting Gemini 3 processing...")
+        print("Starting Gemini 2.5 Pro processing...")
 
         # Construct the prompt
         prompt = f"""
@@ -172,15 +171,12 @@ def generate_content_from_gemini(html_filepath, resume_filepath, mime_type):
         
         print("Gemini 2.5 processing completed.")
         # Clean up the response if it contains markdown
-        response_text = response.text
-        if response_text.startswith("```json"):
-            response_text = response_text[7:]
-        if response_text.endswith("```"):
-            response_text = response_text[:-3]
+        response_text = response.text.strip()
+        response_text = response_text.removeprefix('```json').removesuffix('```').strip()
 
-        return response_text.strip()
+        return response_text
 
     except Exception as e:
-        print(f"Error calling Gemini API: {e}")
+        print(f"Error calling Gemini API (model: gemini-2.5-pro): {type(e).__name__}: {e}")
         # Fallback or re-raise depending on requirements. For now, returning None as per original contract.
         return None
